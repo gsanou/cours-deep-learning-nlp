@@ -1,0 +1,18 @@
+examples: data_protannotml/examples.jsonl
+splits: data_protannotml/splits.json
+regime: R2 cluster 80 %
+max_residues: 1022
+num_workers: 4
+log_every: 50
+seed: 0
+backbone: facebook/esm2_t33_650M_UR50D
+batch_size: 8
+grad_accum: 4
+gradient_checkpointing: true
+lora: true
+lora_r: 16
+lora_alpha: 32
+lr_backbone: 0.0002
+lr_heads: 0.001
+epochs: 8
+output_dir: runs/v100

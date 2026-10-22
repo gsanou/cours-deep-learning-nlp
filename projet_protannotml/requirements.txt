@@ -1,0 +1,14 @@
+# Pin exact versions after your first working install: pip freeze > requirements.lock
+torch>=2.3
+transformers>=4.45
+peft>=0.12
+datasets>=2.20
+accelerate>=0.33
+pyyaml>=6.0
+numpy>=1.26
+scipy>=1.11
+pandas>=2.1
+scikit-learn>=1.4
+matplotlib>=3.8
+fastapi>=0.110
+uvicorn>=0.29

@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Labo du chapitre 0</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a lab notebook on millimetre paper; one bench at a time (tabs), the figure on the left, the worked numbers on the right. */
+:root {
+  --paper: #f7f8f6;
+  --grid: #e3e8e4;
+  --panel: #ffffff;
+  --ink: #1d2427;
+  --muted: #5d6a6e;
+  --rule: #cfd8d4;
+  --fwd: #2457c5;          /* forward values */
+  --fwd-soft: #dde6fa;
+  --grad: #c9541c;         /* gradients */
+  --grad-soft: #fbe3d6;
+  --ok: #16825d;
+  --bad: #c0303b;
+  --region: #e4ecfb;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --step--1: 0.82rem; --step-0: 0.95rem; --step-1: 1.15rem; --step-2: 1.6rem; --step-3: 2.3rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141a1c; --grid: #1f282b; --panel: #1a2225; --ink: #e5ebe8; --muted: #9aa8ab; --rule: #33413f;
+    --fwd: #7ea2ff; --fwd-soft: #22325a; --grad: #f08a55; --grad-soft: #4a2a1b; --ok: #4cc79a; --bad: #f07078; --region: #1f2d4a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141a1c; --grid: #1f282b; --panel: #1a2225; --ink: #e5ebe8; --muted: #9aa8ab; --rule: #33413f;
+  --fwd: #7ea2ff; --fwd-soft: #22325a; --grad: #f08a55; --grad-soft: #4a2a1b; --ok: #4cc79a; --bad: #f07078; --region: #1f2d4a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+}
+.wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+header { display: grid; gap: 6px; margin-bottom: 18px; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--font-display); font-weight: 750; font-size: var(--step-3); line-height: 1.05; margin: 0; text-wrap: balance; }
+h1 .d { color: var(--grad); }
+.lede { max-width: 64ch; margin: 0; color: var(--muted); }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: var(--step--1); color: var(--muted); }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+
+nav.tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 14px; }
+nav.tabs button {
+  font: 500 var(--step--1)/1 var(--font-body); color: var(--ink); background: var(--panel);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 9px 14px; cursor: pointer;
+}
+nav.tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--fwd); outline-offset: 2px; }
+
+.bench { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 820px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+.sheet { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; min-width: 0; }
+.sheet h2 { font-family: var(--font-display); font-weight: 600; font-size: var(--step-2); line-height: 1.15; margin: 0 0 6px; text-wrap: balance; }
+.sheet h3 { font-family: var(--font-body); font-weight: 600; font-size: var(--step-0); margin: 14px 0 6px; }
+.sheet p { margin: 0 0 10px; max-width: 65ch; }
+.hint { font-size: var(--step--1); color: var(--muted); }
+svg { display: block; width: 100%; height: auto; max-width: 100%; touch-action: none; user-select: none; }
+.figscroll { overflow-x: auto; }
+.figscroll svg { min-width: 540px; }
+canvas { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 6px; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+.btn {
+  font: 500 var(--step--1)/1 var(--font-body); padding: 9px 13px; border-radius: 7px; cursor: pointer;
+  border: 1px solid var(--rule); background: var(--panel); color: var(--ink);
+}
+.btn.primary { background: var(--fwd); border-color: var(--fwd); color: var(--panel); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+label.inline { display: inline-flex; align-items: center; gap: 6px; font-size: var(--step--1); color: var(--muted); }
+input[type="number"] { width: 5.2em; font: 400 var(--step--1) var(--font-mono); padding: 6px; border: 1px solid var(--rule); border-radius: 6px; background: var(--paper); color: var(--ink); }
+input[type="range"] { accent-color: var(--fwd); width: 160px; max-width: 100%; }
+select { font: 400 var(--step--1) var(--font-body); padding: 7px; border-radius: 6px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); }
+
+.calc { font-family: var(--font-mono); font-size: var(--step--1); background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; overflow-x: auto; white-space: pre; line-height: 1.7; }
+.calc .f { color: var(--fwd); font-weight: 500; }
+.calc .g { color: var(--grad); font-weight: 500; }
+.calc .m { color: var(--muted); }
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; margin: 10px 0; }
+.readout div { border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; background: var(--paper); }
+.readout b { display: block; font: 500 var(--step-1) var(--font-mono); font-variant-numeric: tabular-nums; }
+.readout span { font-size: var(--step--1); color: var(--muted); }
+.pill { display: inline-block; font: 500 var(--step--1)/1 var(--font-body); padding: 5px 9px; border-radius: 999px; }
+.pill.ok { color: var(--ok); border: 1px solid var(--ok); }
+.pill.bad { color: var(--bad); border: 1px solid var(--bad); }
+.pill.warn { color: var(--grad); border: 1px solid var(--grad); }
+.phase { font-family: var(--font-mono); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; }
+.phase.avant { color: var(--fwd); } .phase.arriere { color: var(--grad); } .phase.maj { color: var(--ok); }
+
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; font-size: var(--step--1); font-variant-numeric: tabular-nums; width: 100%; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font-weight: 600; color: var(--muted); }
+td.mono { font-family: var(--font-mono); }
+tr.err td { color: var(--grad); }
+.progress { height: 4px; background: var(--rule); border-radius: 4px; overflow: hidden; margin: 8px 0 2px; }
+.progress i { display: block; height: 100%; background: var(--ink); width: 0; transition: width 0.25s; }
+@media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
+footer { margin-top: 26px; font-size: var(--step--1); color: var(--muted); max-width: 70ch; }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Deep learning pour le NLP · chapitre 0</span>
+    <h1>Labo du chapitre 0 : les maths <span class="d">∂</span> à la main</h1>
+    <p class="lede">Quatre paillasses pour manipuler ce que le notebook fait calculer au crayon. Change une valeur, avance d'une étape, et regarde chaque nombre se recalculer.</p>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--fwd)"></i>passe avant (valeurs)</span>
+      <span><i class="swatch" style="background:var(--grad)"></i>passe arrière (gradients)</span>
+      <span><i class="swatch" style="background:var(--ok)"></i>mise à jour</span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Paillasses">
+    <button role="tab" id="tab-produit" data-view="produit" aria-selected="true">Produit scalaire</button>
+    <button role="tab" id="tab-perceptron" data-view="perceptron" aria-selected="false">Perceptron</button>
+    <button role="tab" id="tab-retropropagation" data-view="retropropagation" aria-selected="false">Rétropropagation pas à pas</button>
+    <button role="tab" id="tab-descente" data-view="descente" aria-selected="false">Descente de gradient</button>
+  </nav>
+
+  <!-- ============ 1. Dot product ============ -->
+  <section class="view" id="view-produit" role="tabpanel" aria-labelledby="tab-produit">
+    <div class="bench">
+      <div class="sheet">
+        <svg id="dot-svg" viewBox="-5 -5 10 10" aria-label="Deux vecteurs déplaçables w et x"></svg>
+        <p class="hint">Fais glisser la pointe de <b style="color:var(--fwd)">w</b> ou de <b style="color:var(--ok)">x</b>. Les coordonnées s'accrochent au demi-entier pour garder des calculs faisables à la main.</p>
+      </div>
+      <div class="sheet">
+        <h2>w · x = ‖w‖ ‖x‖ cos θ</h2>
+        <p>On multiplie terme à terme, on additionne. Le signe dit si les deux vecteurs vont dans le même sens ; la bande orange est la projection de x sur la direction de w.</p>
+        <div class="calc" id="dot-calc"></div>
+        <div class="readout" id="dot-readout"></div>
+        <p class="hint">Dans un réseau : chaque neurone calcule w · x + b ; l'attention calcule q · k ; la similarité cosinus compare deux plongements.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. Perceptron ============ -->
+  <section class="view" id="view-perceptron" role="tabpanel" aria-labelledby="tab-perceptron" hidden>
+    <div class="bench">
+      <div class="sheet">
+        <svg id="pc-svg" viewBox="-0.6 -0.6 2.2 2.2" aria-label="Plan des entrées et frontière de décision"></svg>
+        <div class="controls">
+          <label class="inline" for="pc-data">Données
+            <select id="pc-data"><option value="and">ET</option><option value="or">OU</option><option value="xor">XOR</option></select>
+          </label>
+          <button class="btn primary" id="pc-step">Étape suivante</button>
+          <button class="btn" id="pc-epoch">Passage complet</button>
+          <button class="btn" id="pc-reset">Recommencer</button>
+        </div>
+        <p class="hint">Ronds : y = 1 ; carrés : y = 0. Zone teintée : le perceptron y prédit 1. Le point entouré est l'exemple examiné.</p>
+      </div>
+      <div class="sheet">
+        <h2>w ← w + η (y − ŷ) x</h2>
+        <p>On prédit 1 si w · x + b &gt; 0. À chaque erreur, on ajoute (ou retranche) l'exemple aux poids, avec η = 1. Départ : w = (0, 0), b = 0.</p>
+        <div id="pc-status"></div>
+        <div class="tablewrap"><table id="pc-table" aria-label="Journal des étapes"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. Backprop ============ -->
+  <section class="view" id="view-retropropagation" role="tabpanel" aria-labelledby="tab-retropropagation" hidden>
+    <div class="bench">
+      <div class="sheet">
+        <div class="figscroll"><svg id="bp-svg" viewBox="0 0 640 330" aria-label="Réseau 2-2-1 avec valeurs et gradients"></svg></div>
+        <div class="controls">
+          <label class="inline" for="bp-x1">x₁ <input type="number" id="bp-x1" value="1" step="0.5"></label>
+          <label class="inline" for="bp-x2">x₂ <input type="number" id="bp-x2" value="2" step="0.5"></label>
+          <label class="inline" for="bp-y">y <select id="bp-y"><option value="1">1</option><option value="0">0</option></select></label>
+          <label class="inline" for="bp-lr">η <input type="number" id="bp-lr" value="0.1" step="0.05" min="0"></label>
+        </div>
+        <p class="hint">Mêmes poids et même exemple que la section 8 du notebook. Change x, y ou η : tout se recalcule.</p>
+      </div>
+      <div class="sheet">
+        <div class="phase" id="bp-phase"></div>
+        <h2 id="bp-title"></h2>
+        <div class="progress" aria-hidden="true"><i id="bp-bar"></i></div>
+        <p class="hint" id="bp-count"></p>
+        <div class="calc" id="bp-calc"></div>
+        <p id="bp-why"></p>
+        <div class="controls">
+          <button class="btn" id="bp-prev">← Précédente</button>
+          <button class="btn primary" id="bp-next">Suivante →</button>
+          <button class="btn" id="bp-restart">Revenir au début</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. Gradient descent ============ -->
+  <section class="view" id="view-descente" role="tabpanel" aria-labelledby="tab-descente" hidden>
+    <div class="bench">
+      <div class="sheet">
+        <canvas id="gd-canvas" width="720" height="560" aria-label="Courbes de niveau de L(a, b) = a² + 3b² et trajectoire"></canvas>
+        <p class="hint">Clique ou touche le plan pour choisir le point de départ.</p>
+      </div>
+      <div class="sheet">
+        <h2>(a, b) ← (a, b) − η ∇L</h2>
+        <p>Avec L(a, b) = a² + 3b², le gradient vaut (2a, 6b). Un pas multiplie a par (1 − 2η) et b par (1 − 6η) : chaque coordonnée converge si ce facteur est compris entre −1 et 1.</p>
+        <div class="controls">
+          <label class="inline" for="gd-lr">η <input type="range" id="gd-lr" min="0.01" max="0.4" step="0.01" value="0.1"> <output id="gd-lr-out" for="gd-lr">0,10</output></label>
+        </div>
+        <div class="controls">
+          <button class="btn primary" id="gd-step">Un pas</button>
+          <button class="btn" id="gd-play">Lancer</button>
+          <button class="btn" id="gd-reset">Repartir</button>
+        </div>
+        <div class="readout" id="gd-readout"></div>
+        <div class="calc" id="gd-calc"></div>
+        <div id="gd-status"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Ce labo accompagne le notebook « Chapitre 0 — Les maths à la main ». Les valeurs sont arrondies à 4 décimales à l'affichage ; les calculs internes sont exacts en double précision.</footer>
+</div>
+
+<script>
+(() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const fr = (v, d = 4) => {
+    if (!isFinite(v)) return "∞";
+    let s = (Math.abs(v) < 1e-12 ? 0 : v).toFixed(d);
+    if (s.includes(".")) s = s.replace(/0+$/, "").replace(/\.$/, "");
+    if (s === "-0") s = "0";
+    return s.replace("-", "−").replace(".", ",");
+  };
+  const par = (v, d = 4) => (v < 0 ? "(" + fr(v, d) + ")" : fr(v, d));
+  const el = (tag, attrs = {}, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const sigmoid = (z) => 1 / (1 + Math.exp(-z));
+
+  /* ---------- tabs ---------- */
+  const tabs = [...document.querySelectorAll("nav.tabs button")];
+  function show(view) {
+    tabs.forEach((t) => t.setAttribute("aria-selected", String(t.dataset.view === view)));
+    document.querySelectorAll(".view").forEach((v) => (v.hidden = v.id !== "view-" + view));
+    if (view === "descente") drawGD();
+    try { localStorage.setItem("labo0-view", view); } catch (e) {}
+  }
+  tabs.forEach((t) => t.addEventListener("click", () => show(t.dataset.view)));
+  tabs.forEach((t, i) => t.addEventListener("keydown", (ev) => {
+    if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") {
+      const j = (i + (ev.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length;
+      tabs[j].focus(); show(tabs[j].dataset.view);
+    }
+  }));
+
+  /* ---------- 1. dot product ---------- */
+  const dot = { w: [2, -1], x: [3, 1], drag: null };
+  const dotSvg = document.getElementById("dot-svg");
+  function svgPoint(svg, ev) {
+    const pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY;
+    return pt.matrixTransform(svg.getScreenCTM().inverse());
+  }
+  function drawDot() {
+    const svg = dotSvg; svg.innerHTML = "";
+    const [w1, w2] = dot.w, [x1, x2] = dot.x;
+    // grid: y is flipped by drawing at -y
+    for (let k = -4; k <= 4; k++) {
+      el("line", { x1: k, y1: -4.6, x2: k, y2: 4.6, stroke: css("--grid"), "stroke-width": k === 0 ? 0.04 : 0.02 }, svg);
+      el("line", { x1: -4.6, y1: k, x2: 4.6, y2: k, stroke: css("--grid"), "stroke-width": k === 0 ? 0.04 : 0.02 }, svg);
+    }
+    el("line", { x1: -4.6, y1: 0, x2: 4.6, y2: 0, stroke: css("--muted"), "stroke-width": 0.03 }, svg);
+    el("line", { x1: 0, y1: -4.6, x2: 0, y2: 4.6, stroke: css("--muted"), "stroke-width": 0.03 }, svg);
+    for (let k = -4; k <= 4; k += 2) if (k) {
+      const t = el("text", { x: k, y: 0.45, "font-size": 0.32, fill: css("--muted"), "text-anchor": "middle", "font-family": "IBM Plex Mono, monospace" }, svg); t.textContent = k;
+      const t2 = el("text", { x: -0.25, y: -k + 0.1, "font-size": 0.32, fill: css("--muted"), "text-anchor": "end", "font-family": "IBM Plex Mono, monospace" }, svg); t2.textContent = k;
+    }
+    const nw = Math.hypot(w1, w2);
+    if (nw > 0) {
+      const p = (w1 * x1 + w2 * x2) / nw, ux = w1 / nw, uy = w2 / nw;
+      el("line", { x1: 0, y1: 0, x2: p * ux, y2: -p * uy, stroke: css("--grad"), "stroke-width": 0.28, "stroke-opacity": 0.55 }, svg);
+      el("line", { x1: x1, y1: -x2, x2: p * ux, y2: -p * uy, stroke: css("--muted"), "stroke-width": 0.03, "stroke-dasharray": "0.12 0.1" }, svg);
+    }
+    const defs = el("defs", {}, svg);
+    [["aw", css("--fwd")], ["ax", css("--ok")]].forEach(([id, c]) => {
+      const m = el("marker", { id, viewBox: "0 0 10 10", refX: 8, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto-start-reverse" }, defs);
+      el("path", { d: "M0,0 L10,5 L0,10 z", fill: c }, m);
+    });
+    el("line", { x1: 0, y1: 0, x2: w1, y2: -w2, stroke: css("--fwd"), "stroke-width": 0.09, "marker-end": "url(#aw)" }, svg);
+    el("line", { x1: 0, y1: 0, x2: x1, y2: -x2, stroke: css("--ok"), "stroke-width": 0.09, "marker-end": "url(#ax)" }, svg);
+    [["w", dot.w, css("--fwd")], ["x", dot.x, css("--ok")]].forEach(([name, v, c]) => {
+      const h = el("circle", { cx: v[0], cy: -v[1], r: 0.32, fill: c, "fill-opacity": 0.18, stroke: c, "stroke-width": 0.04, style: "cursor:grab" }, svg);
+      h.dataset.handle = name;
+      const t = el("text", { x: v[0] + 0.38, y: -v[1] - 0.3, "font-size": 0.48, fill: c, "font-weight": 600, "font-family": "IBM Plex Sans, sans-serif" }, svg);
+      t.textContent = name;
+    });
+    const d = w1 * x1 + w2 * x2, nx = Math.hypot(x1, x2);
+    const cos = nw && nx ? d / (nw * nx) : NaN;
+    document.getElementById("dot-calc").innerHTML =
+      `w · x = w₁x₁ + w₂x₂\n      = ${par(w1)} × ${par(x1)} + ${par(w2)} × ${par(x2)}\n      = ${fr(w1 * x1)} + ${par(w2 * x2)} = <span class="f">${fr(d)}</span>\n\n` +
+      `‖w‖ = √(${par(w1)}² + ${par(w2)}²) = ${fr(nw, 3)}\n‖x‖ = √(${par(x1)}² + ${par(x2)}²) = ${fr(nx, 3)}\n` +
+      `cos θ = ${fr(d)} / (${fr(nw, 3)} × ${fr(nx, 3)}) = <span class="g">${isNaN(cos) ? "indéfini" : fr(cos, 3)}</span>`;
+    const ang = isNaN(cos) ? "—" : fr(Math.acos(Math.max(-1, Math.min(1, cos))) * 180 / Math.PI, 1) + "°";
+    const verdict = isNaN(cos) ? "—" : Math.abs(d) < 1e-9 ? "orthogonaux" : d > 0 ? "même sens" : "sens opposés";
+    document.getElementById("dot-readout").innerHTML =
+      `<div><b>${fr(d)}</b><span>w · x</span></div><div><b>${ang}</b><span>angle θ</span></div><div><b>${verdict}</b><span>lecture</span></div>`;
+  }
+  dotSvg.addEventListener("pointerdown", (ev) => {
+    const h = ev.target.dataset && ev.target.dataset.handle;
+    if (h) { dot.drag = h; dotSvg.setPointerCapture(ev.pointerId); }
+  });
+  dotSvg.addEventListener("pointermove", (ev) => {
+    if (!dot.drag) return;
+    const p = svgPoint(dotSvg, ev);
+    const snap = (v) => Math.max(-4.5, Math.min(4.5, Math.round(v * 2) / 2));
+    dot[dot.drag] = [snap(p.x), snap(-p.y)];
+    drawDot();
+  });
+  const endDrag = () => (dot.drag = null);
+  dotSvg.addEventListener("pointerup", endDrag);
+  dotSvg.addEventListener("pointercancel", endDrag);
+
+  /* ---------- 2. perceptron ---------- */
+  const DATA = {
+    and: [[0, 0, 0], [0, 1, 0], [1, 0, 0], [1, 1, 1]],
+    or: [[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 1]],
+    xor: [[0, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 0]],
+  };
+  const pc = { data: "and", w: [0, 0], b: 0, i: 0, pass: 1, errorsThisPass: 0, log: [], cur: null, done: false, cleanPasses: 0 };
+  function pcReset() {
+    Object.assign(pc, { w: [0, 0], b: 0, i: 0, pass: 1, errorsThisPass: 0, log: [], cur: null, done: false });
+    drawPC();
+  }
+  function pcStep() {
+    if (pc.done) return;
+    const [x1, x2, y] = DATA[pc.data][pc.i];
+    const s = pc.w[0] * x1 + pc.w[1] * x2 + pc.b;
+    const yh = s > 0 ? 1 : 0;
+    const e = y - yh;
+    if (e !== 0) { pc.w = [pc.w[0] + e * x1, pc.w[1] + e * x2]; pc.b += e; pc.errorsThisPass++; }
+    pc.log.push({ pass: pc.pass, x: [x1, x2], y, s, yh, e, w: [...pc.w], b: pc.b });
+    pc.cur = [x1, x2];
+    pc.i++;
+    if (pc.i === 4) {
+      if (pc.errorsThisPass === 0) pc.done = true;
+      else if (pc.pass >= 12) pc.done = true;
+      pc.i = 0; pc.pass++; pc.lastErrors = pc.errorsThisPass; pc.errorsThisPass = 0;
+    }
+    drawPC();
+  }
+  function drawPC() {
+    const svg = document.getElementById("pc-svg"); svg.innerHTML = "";
+    const lo = -0.6, hi = 1.6;
+    // shaded half-plane (y axis flipped: svg y = 1 - x2)
+    const [w1, w2] = pc.w, b = pc.b;
+    const N = 44, step = (hi - lo) / N;
+    for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+      const cx = lo + (i + 0.5) * step, cy = lo + (j + 0.5) * step;
+      if (w1 * cx + w2 * cy + b > 0) el("rect", { x: cx - step / 2, y: 1 - cy - step / 2, width: step + 0.002, height: step + 0.002, fill: css("--region") }, svg);
+    }
+    for (let k = 0; k <= 1; k++) {
+      el("line", { x1: k, y1: 1 - lo, x2: k, y2: 1 - hi, stroke: css("--rule"), "stroke-width": 0.006 }, svg);
+      el("line", { x1: lo, y1: 1 - k, x2: hi, y2: 1 - k, stroke: css("--rule"), "stroke-width": 0.006 }, svg);
+    }
+    if (Math.abs(w2) > 1e-9) {
+      el("line", { x1: lo, y1: 1 - (-(w1 * lo + b) / w2), x2: hi, y2: 1 - (-(w1 * hi + b) / w2), stroke: css("--fwd"), "stroke-width": 0.02 }, svg);
+    } else if (Math.abs(w1) > 1e-9) {
+      const xv = -b / w1; el("line", { x1: xv, y1: 1 - lo, x2: xv, y2: 1 - hi, stroke: css("--fwd"), "stroke-width": 0.02 }, svg);
+    }
+    DATA[pc.data].forEach(([a, c, y]) => {
+      if (y) el("circle", { cx: a, cy: 1 - c, r: 0.07, fill: css("--ok") }, svg);
+      else el("rect", { x: a - 0.065, y: 1 - c - 0.065, width: 0.13, height: 0.13, fill: css("--bad") }, svg);
+      const t = el("text", { x: a + 0.1, y: 1 - c + 0.17, "font-size": 0.085, fill: css("--muted"), "font-family": "IBM Plex Mono, monospace" }, svg);
+      t.textContent = `(${a},${c})`;
+    });
+    if (pc.cur) el("circle", { cx: pc.cur[0], cy: 1 - pc.cur[1], r: 0.13, fill: "none", stroke: css("--ink"), "stroke-width": 0.018 }, svg);
+
+    const st = document.getElementById("pc-status");
+    let msg;
+    if (pc.done && pc.lastErrors === 0) msg = `<span class="pill ok">Convergé : un passage sans erreur</span> w = (${fr(w1)}, ${fr(w2)}), b = ${fr(b)}`;
+    else if (pc.done) msg = `<span class="pill bad">Pas de convergence après 12 passages</span> Aucune droite ne sépare ces points : il faut une couche cachée.`;
+    else msg = `<span class="pill warn">Passage ${pc.pass}, exemple ${pc.i + 1} sur 4</span> w = (${fr(w1)}, ${fr(w2)}), b = ${fr(b)}`;
+    st.innerHTML = `<p>${msg}</p>`;
+    const rows = pc.log.slice(-10).map((r) => `<tr class="${r.e ? "err" : ""}"><td>${r.pass}</td><td class="mono">(${r.x})</td><td>${r.y}</td>` +
+      `<td class="mono">${fr(r.s)}</td><td>${r.yh}</td><td>${r.e > 0 ? "+x" : r.e < 0 ? "−x" : "—"}</td>` +
+      `<td class="mono">(${fr(r.w[0])}, ${fr(r.w[1])})</td><td class="mono">${fr(r.b)}</td></tr>`).join("");
+    document.getElementById("pc-table").innerHTML =
+      `<thead><tr><th>passage</th><th>x</th><th>y</th><th>w·x+b</th><th>ŷ</th><th>correction</th><th>w</th><th>b</th></tr></thead><tbody>${rows ||
+      `<tr><td colspan="8">Appuie sur « Étape suivante » : le premier exemple est (0,0).</td></tr>`}</tbody>`;
+    document.getElementById("pc-step").disabled = pc.done;
+    document.getElementById("pc-epoch").disabled = pc.done;
+  }
+  document.getElementById("pc-step").addEventListener("click", pcStep);
+  document.getElementById("pc-epoch").addEventListener("click", () => { do { pcStep(); } while (pc.i !== 0 && !pc.done); });
+  document.getElementById("pc-reset").addEventListener("click", pcReset);
+  document.getElementById("pc-data").addEventListener("change", (e) => { pc.data = e.target.value; pcReset(); });
+
+  /* ---------- 3. backprop step by step ---------- */
+  const W1_0 = [[0.5, -1], [1, 0.5]], B1_0 = [0.5, -1], W2_0 = [1, -2], B2_0 = 0.5;
+  let bpStep = 0;
+  function compute(x, y, lr) {
+    const z1 = [0, 1].map((j) => W1_0[j][0] * x[0] + W1_0[j][1] * x[1] + B1_0[j]);
+    const h = z1.map((v) => Math.max(0, v));
+    const z2 = W2_0[0] * h[0] + W2_0[1] * h[1] + B2_0;
+    const yh = sigmoid(z2);
+    const L = -(y * Math.log(yh) + (1 - y) * Math.log(1 - yh));
+    const d2 = yh - y;
+    const dw2 = h.map((v) => d2 * v), db2 = d2;
+    const dh = W2_0.map((v) => d2 * v);
+    const rp = z1.map((v) => (v > 0 ? 1 : 0));
+    const d1 = dh.map((v, j) => v * rp[j]);
+    const dW1 = d1.map((v) => [v * x[0], v * x[1]]), db1 = d1;
+    const W1n = W1_0.map((r, j) => r.map((v, k) => v - lr * dW1[j][k]));
+    const B1n = B1_0.map((v, j) => v - lr * db1[j]);
+    const W2n = W2_0.map((v, j) => v - lr * dw2[j]);
+    const B2n = B2_0 - lr * db2;
+    const z1n = [0, 1].map((j) => W1n[j][0] * x[0] + W1n[j][1] * x[1] + B1n[j]);
+    const hn = z1n.map((v) => Math.max(0, v));
+    const z2n = W2n[0] * hn[0] + W2n[1] * hn[1] + B2n;
+    const yhn = sigmoid(z2n);
+    const Ln = -(y * Math.log(yhn) + (1 - y) * Math.log(1 - yhn));
+    return { x, y, lr, z1, h, z2, yh, L, d2, dw2, db2, dh, rp, d1, dW1, db1, W1n, B1n, W2n, B2n, z1n, hn, z2n, yhn, Ln };
+  }
+  function bpSteps(c) {
+    const x = c.x, y = c.y;
+    return [
+      { phase: "avant", title: "Le point de départ", hl: [],
+        calc: `x = (${fr(x[0])}, ${fr(x[1])})   cible y = ${y}   η = ${fr(c.lr)}\n\nW⁽¹⁾ = [[0,5 ; −1], [1 ; 0,5]]   b⁽¹⁾ = (0,5 ; −1)\nw⁽²⁾ = (1 ; −2)                b⁽²⁾ = 0,5`,
+        why: "Le réseau a 2 entrées, 2 neurones cachés ReLU et une sortie sigmoïde. On va calculer la sortie (passe avant), puis la responsabilité de chaque poids dans l'erreur (passe arrière)." },
+      { phase: "avant", title: "Neurone caché 1 : z₁⁽¹⁾", hl: ["e-x1-h1", "e-x2-h1", "n-h1"], show: ["z1a"],
+        calc: `z₁⁽¹⁾ = W₁₁x₁ + W₁₂x₂ + b₁\n      = 0,5 × ${par(x[0])} + (−1) × ${par(x[1])} + 0,5\n      = <span class="f">${fr(c.z1[0])}</span>`,
+        why: "Un produit scalaire entre la première ligne de W⁽¹⁾ et x, plus le biais." },
+      { phase: "avant", title: "Neurone caché 2 : z₂⁽¹⁾", hl: ["e-x1-h2", "e-x2-h2", "n-h2"], show: ["z1a", "z1b"],
+        calc: `z₂⁽¹⁾ = W₂₁x₁ + W₂₂x₂ + b₂\n      = 1 × ${par(x[0])} + 0,5 × ${par(x[1])} + (−1)\n      = <span class="f">${fr(c.z1[1])}</span>`,
+        why: "Même calcul avec la deuxième ligne de W⁽¹⁾. En pratique, les deux lignes sont calculées d'un coup : z⁽¹⁾ = W⁽¹⁾x + b⁽¹⁾." },
+      { phase: "avant", title: "Activation : h = ReLU(z⁽¹⁾)", hl: ["n-h1", "n-h2"], show: ["z1a", "z1b", "h"],
+        calc: `h = (max(0, ${fr(c.z1[0])}), max(0, ${fr(c.z1[1])})) = (<span class="f">${fr(c.h[0])}</span>, <span class="f">${fr(c.h[1])}</span>)`,
+        why: c.h.some((v) => v === 0) ? "Un neurone à z ≤ 0 est éteint : il sort 0, et (on le verra) il ne recevra aucun gradient pour cet exemple." : "Les deux neurones sont actifs : ReLU laisse passer leur valeur telle quelle." },
+      { phase: "avant", title: "Sortie : z⁽²⁾", hl: ["e-h1-y", "e-h2-y", "n-y"], show: ["z1a", "z1b", "h", "z2"],
+        calc: `z⁽²⁾ = w₁⁽²⁾h₁ + w₂⁽²⁾h₂ + b⁽²⁾\n     = 1 × ${par(c.h[0])} + (−2) × ${par(c.h[1])} + 0,5\n     = <span class="f">${fr(c.z2)}</span>`,
+        why: "Encore un produit scalaire, cette fois entre w⁽²⁾ et les activations cachées." },
+      { phase: "avant", title: "Probabilité : ŷ = σ(z⁽²⁾)", hl: ["n-y"], show: ["z1a", "z1b", "h", "z2", "yh"],
+        calc: `ŷ = 1 / (1 + e^(−z⁽²⁾)) = 1 / (1 + e^(${fr(-c.z2)}))\n  = <span class="f">${fr(c.yh)}</span>`,
+        why: "La sigmoïde écrase le score dans ]0, 1[ : c'est la probabilité que le réseau donne à la classe 1." },
+      { phase: "avant", title: "Perte : entropie croisée", hl: ["n-L"], show: ["z1a", "z1b", "h", "z2", "yh", "L"],
+        calc: `L = −[y ln ŷ + (1 − y) ln(1 − ŷ)]\n  = ${y === 1 ? `−ln ${fr(c.yh)}` : `−ln(1 − ${fr(c.yh)})`}\n  = <span class="f">${fr(c.L)}</span>`,
+        why: c.L > 0.7 ? "La perte est grande : le réseau donne une faible probabilité à la bonne réponse. Place à la passe arrière." : "La perte est déjà modérée ; la passe arrière dira comment l'améliorer encore." },
+      { phase: "arriere", title: "Gradient de sortie : δ⁽²⁾ = ŷ − y", hl: ["n-y", "n-L"], show: ["z1a", "z1b", "h", "z2", "yh", "L", "d2"],
+        calc: `δ⁽²⁾ = ∂L/∂z⁽²⁾ = ŷ − y = ${fr(c.yh)} − ${y}\n     = <span class="g">${fr(c.d2)}</span>`,
+        why: "Sigmoïde + entropie croisée : la dérivée se simplifie en « prédit moins vrai ». Négatif = augmenter z⁽²⁾ ferait baisser la perte." },
+      { phase: "arriere", title: "Gradients de la couche de sortie", hl: ["e-h1-y", "e-h2-y"], show: ["z1a", "z1b", "h", "z2", "yh", "L", "d2", "gw2"],
+        calc: `∂L/∂w₁⁽²⁾ = δ⁽²⁾ × h₁ = ${fr(c.d2)} × ${fr(c.h[0])} = <span class="g">${fr(c.dw2[0])}</span>\n∂L/∂w₂⁽²⁾ = δ⁽²⁾ × h₂ = ${fr(c.d2)} × ${fr(c.h[1])} = <span class="g">${fr(c.dw2[1])}</span>\n∂L/∂b⁽²⁾  = δ⁽²⁾          = <span class="g">${fr(c.db2)}</span>`,
+        why: "z⁽²⁾ dépend de w_j⁽²⁾ avec le coefficient h_j : la règle de la chaîne multiplie δ⁽²⁾ par ce coefficient. Un poids dont l'entrée vaut 0 ne reçoit aucun gradient." },
+      { phase: "arriere", title: "On renvoie l'erreur vers la couche cachée", hl: ["e-h1-y", "e-h2-y", "n-h1", "n-h2"], show: ["z1a", "z1b", "h", "z2", "yh", "L", "d2", "gw2", "dh"],
+        calc: `∂L/∂h₁ = δ⁽²⁾ × w₁⁽²⁾ = ${fr(c.d2)} × 1    = <span class="g">${fr(c.dh[0])}</span>\n∂L/∂h₂ = δ⁽²⁾ × w₂⁽²⁾ = ${fr(c.d2)} × (−2) = <span class="g">${fr(c.dh[1])}</span>`,
+        why: "Cette fois on dérive par rapport à h_j : le coefficient est le poids w_j⁽²⁾. C'est le « Wᵀδ » de la forme matricielle." },
+      { phase: "arriere", title: "À travers la ReLU : δ⁽¹⁾", hl: ["n-h1", "n-h2"], show: ["z1a", "z1b", "h", "z2", "yh", "L", "d2", "gw2", "dh", "d1"],
+        calc: `ReLU'(z⁽¹⁾) = (${c.rp[0]}, ${c.rp[1]})   (1 si z > 0, sinon 0)\nδ⁽¹⁾ = ∂L/∂h ⊙ ReLU'(z⁽¹⁾) = (${fr(c.dh[0])} × ${c.rp[0]}, ${fr(c.dh[1])} × ${c.rp[1]})\n     = (<span class="g">${fr(c.d1[0])}</span>, <span class="g">${fr(c.d1[1])}</span>)`,
+        why: c.rp.includes(0) ? "Un neurone éteint bloque le gradient : sa dérivée locale vaut 0. S'il est éteint pour tous les exemples, il n'apprendra plus jamais (neurone mort)." : "Les deux neurones sont actifs : la ReLU laisse passer le gradient intact (dérivée 1)." },
+      { phase: "arriere", title: "Gradients de la première couche", hl: ["e-x1-h1", "e-x2-h1", "e-x1-h2", "e-x2-h2"], show: ["z1a", "z1b", "h", "z2", "yh", "L", "d2", "gw2", "dh", "d1", "gw1"],
+        calc: `∂L/∂W⁽¹⁾ = δ⁽¹⁾ xᵀ   (ligne j = δ_j⁽¹⁾ × x)\n  ligne 1 : ${fr(c.d1[0])} × (${fr(x[0])}, ${fr(x[1])}) = (<span class="g">${fr(c.dW1[0][0])}</span>, <span class="g">${fr(c.dW1[0][1])}</span>)\n  ligne 2 : ${fr(c.d1[1])} × (${fr(x[0])}, ${fr(x[1])}) = (<span class="g">${fr(c.dW1[1][0])}</span>, <span class="g">${fr(c.dW1[1][1])}</span>)\n∂L/∂b⁽¹⁾ = δ⁽¹⁾ = (<span class="g">${fr(c.db1[0])}</span>, <span class="g">${fr(c.db1[1])}</span>)`,
+        why: "Le gradient d'une matrice de poids a toujours la même forme qu'elle. C'est un produit extérieur : erreur du neurone × entrée qu'il reçoit." },
+      { phase: "maj", title: "Mise à jour : θ ← θ − η ∂L/∂θ", hl: ["e-x1-h1", "e-x2-h1", "e-x1-h2", "e-x2-h2", "e-h1-y", "e-h2-y"], show: ["all"], update: true,
+        calc: `η = ${fr(c.lr)}\nw⁽²⁾ = (1 − ${fr(c.lr)} × ${par(c.dw2[0])}, −2 − ${fr(c.lr)} × ${par(c.dw2[1])}) = (${fr(c.W2n[0])}, ${fr(c.W2n[1])})\nb⁽²⁾ = 0,5 − ${fr(c.lr)} × ${par(c.db2)} = ${fr(c.B2n)}\nW⁽¹⁾ = [[${fr(c.W1n[0][0])} ; ${fr(c.W1n[0][1])}], [${fr(c.W1n[1][0])} ; ${fr(c.W1n[1][1])}]]\nb⁽¹⁾ = (${fr(c.B1n[0])} ; ${fr(c.B1n[1])})`,
+        why: "On fait un petit pas dans la direction opposée au gradient. Les nouveaux poids sont affichés sur les flèches en vert." },
+      { phase: "maj", title: "On recommence la passe avant", hl: ["n-L"], show: ["all"], update: true, after: true,
+        calc: `h = (${fr(c.hn[0])}, ${fr(c.hn[1])})   z⁽²⁾ = ${fr(c.z2n)}   ŷ = ${fr(c.yhn)}\n\nperte avant : ${fr(c.L)}\nperte après : <span class="${c.Ln < c.L ? "f" : "g"}">${fr(c.Ln)}</span>`,
+        why: c.Ln < c.L ? `La perte a baissé de ${fr(100 * (1 - c.Ln / c.L), 1)} %. Un entraînement complet répète exactement ces étapes, sur des millions d'exemples et de poids.` : "La perte n'a pas baissé : le pas η est trop grand pour cet exemple. Essaie une valeur plus petite." },
+    ];
+  }
+  const BP_NODES = { x1: [70, 90], x2: [70, 240], h1: [290, 90], h2: [290, 240], y: [480, 165], L: [590, 165] };
+  function drawBP() {
+    const x = [parseFloat(document.getElementById("bp-x1").value) || 0, parseFloat(document.getElementById("bp-x2").value) || 0];
+    const y = parseInt(document.getElementById("bp-y").value, 10);
+    const lr = Math.max(0, parseFloat(document.getElementById("bp-lr").value) || 0);
+    const c = compute(x, y, lr);
+    const steps = bpSteps(c);
+    bpStep = Math.max(0, Math.min(bpStep, steps.length - 1));
+    const s = steps[bpStep];
+    const shown = new Set(s.show || []);
+    const all = shown.has("all");
+    const has = (k) => all || shown.has(k);
+    const svg = document.getElementById("bp-svg"); svg.innerHTML = "";
+    const defs = el("defs", {}, svg);
+    [["mk", css("--muted")], ["mkh", css("--ink")]].forEach(([id, col]) => {
+      const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto" }, defs);
+      el("path", { d: "M0,0 L10,5 L0,10 z", fill: col }, m);
+    });
+    const W1 = s.update ? c.W1n : W1_0, W2 = s.update ? c.W2n : W2_0;
+    const edges = [
+      ["x1", "h1", W1[0][0], 0, 0], ["x2", "h1", W1[0][1], 0, 1], ["x1", "h2", W1[1][0], 1, 0], ["x2", "h2", W1[1][1], 1, 1],
+      ["h1", "y", W2[0], null, 0], ["h2", "y", W2[1], null, 1], ["y", "L", null, null, null],
+    ];
+    const R = 30;
+    edges.forEach(([a, b, wv, j, k]) => {
+      const [ax, ay] = BP_NODES[a], [bx, by] = BP_NODES[b];
+      const len = Math.hypot(bx - ax, by - ay), ux = (bx - ax) / len, uy = (by - ay) / len;
+      const id = `e-${a}-${b}`, hot = s.hl.includes(id);
+      el("line", { x1: ax + ux * R, y1: ay + uy * R, x2: bx - ux * (R + 2), y2: by - uy * (R + 2),
+        stroke: hot ? css("--ink") : css("--rule"), "stroke-width": hot ? 2.6 : 1.6, "marker-end": `url(#${hot ? "mkh" : "mk"})` }, svg);
+      if (wv !== null) {
+        const t = a.startsWith("x") ? 0.62 : 0.5;
+        const px = ax + t * (bx - ax), py = ay + t * (by - ay);
+        el("rect", { x: px - 30, y: py - 22, width: 60, height: 18, rx: 4, fill: css("--panel") }, svg);
+        const tx = el("text", { x: px, y: py - 9, "text-anchor": "middle", "font-size": 13, "font-family": "IBM Plex Mono, monospace",
+          fill: s.update ? css("--ok") : css("--fwd"), "font-weight": 500 }, svg);
+        tx.textContent = fr(wv, 3);
+        let gtxt = null;
+        if (j !== null && has("gw1")) gtxt = c.dW1[j][k];
+        if (j === null && has("gw2")) gtxt = c.dw2[k];
+        if (gtxt !== null && !s.update) {
+          el("rect", { x: px - 34, y: py + 1, width: 68, height: 16, rx: 4, fill: css("--panel") }, svg);
+          const g = el("text", { x: px, y: py + 12, "text-anchor": "middle", "font-size": 11.5, "font-family": "IBM Plex Mono, monospace", fill: css("--grad") }, svg);
+          g.textContent = "∂ " + fr(gtxt, 3);
+        }
+      }
+    });
+    const label = { x1: `x₁ = ${fr(x[0])}`, x2: `x₂ = ${fr(x[1])}`, h1: "h₁", h2: "h₂", y: "ŷ", L: "L" };
+    Object.entries(BP_NODES).forEach(([n, [nx, ny]]) => {
+      const hot = s.hl.includes("n-" + n);
+      const col = n.startsWith("x") ? css("--ok") : n === "L" ? css("--grad") : css("--fwd");
+      el("circle", { cx: nx, cy: ny, r: R, fill: css("--panel"), stroke: hot ? css("--ink") : col, "stroke-width": hot ? 3 : 1.6 }, svg);
+      const t = el("text", { x: nx, y: ny + 5, "text-anchor": "middle", "font-size": n.startsWith("x") ? 12 : 15, "font-family": "IBM Plex Sans, sans-serif", fill: css("--ink"), "font-weight": 600 }, svg);
+      t.textContent = label[n];
+    });
+    const lines = [];
+    const after = s.after;
+    const z1 = after ? c.z1n : c.z1, h = after ? c.hn : c.h;
+    if (has("z1a")) lines.push(["h1", `z = ${fr(z1[0], 3)}`, "--fwd", -44]);
+    if (has("z1b")) lines.push(["h2", `z = ${fr(z1[1], 3)}`, "--fwd", 46]);
+    if (has("h")) { lines.push(["h1", `h = ${fr(h[0], 3)}`, "--fwd", -60]); lines.push(["h2", `h = ${fr(h[1], 3)}`, "--fwd", 62]); }
+    if (has("d1")) { lines.push(["h1", `δ = ${fr(c.d1[0], 3)}`, "--grad", -76]); lines.push(["h2", `δ = ${fr(c.d1[1], 3)}`, "--grad", 78]); }
+    if (has("z2")) lines.push(["y", `z = ${fr(after ? c.z2n : c.z2, 3)}`, "--fwd", -44]);
+    if (has("yh")) lines.push(["y", `ŷ = ${fr(after ? c.yhn : c.yh, 3)}`, "--fwd", -60]);
+    if (has("d2") && !after) lines.push(["y", `δ = ${fr(c.d2, 3)}`, "--grad", 48]);
+    if (has("L")) lines.push(["L", `${fr(after ? c.Ln : c.L, 3)}`, "--fwd", -44]);
+    lines.forEach(([n, txt, tok, dy]) => {
+      const [nx, ny] = BP_NODES[n];
+      const t = el("text", { x: nx, y: ny + dy, "text-anchor": "middle", "font-size": 12.5, "font-family": "IBM Plex Mono, monospace", fill: css(tok), "font-weight": 500 }, svg);
+      t.textContent = txt;
+    });
+    const ph = document.getElementById("bp-phase");
+    ph.className = "phase " + s.phase;
+    ph.textContent = { avant: "passe avant", arriere: "passe arrière", maj: "mise à jour" }[s.phase];
+    document.getElementById("bp-title").textContent = s.title;
+    document.getElementById("bp-calc").innerHTML = s.calc;
+    document.getElementById("bp-why").textContent = s.why;
+    document.getElementById("bp-count").textContent = `Étape ${bpStep + 1} sur ${steps.length}`;
+    document.getElementById("bp-bar").style.width = `${(100 * (bpStep + 1)) / steps.length}%`;
+    document.getElementById("bp-prev").disabled = bpStep === 0;
+    document.getElementById("bp-next").disabled = bpStep === steps.length - 1;
+  }
+  document.getElementById("bp-next").addEventListener("click", () => { bpStep++; drawBP(); });
+  document.getElementById("bp-prev").addEventListener("click", () => { bpStep--; drawBP(); });
+  document.getElementById("bp-restart").addEventListener("click", () => { bpStep = 0; drawBP(); });
+  ["bp-x1", "bp-x2", "bp-y", "bp-lr"].forEach((id) => document.getElementById(id).addEventListener("input", drawBP));
+
+  /* ---------- 4. gradient descent ---------- */
+  const gd = { start: [-1.8, 1.0], path: [[-1.8, 1.0]], timer: null };
+  const cv = document.getElementById("gd-canvas"), ctx = cv.getContext("2d");
+  const GX = [-2.4, 2.4], GY = [-1.9, 1.9];
+  const toPx = ([a, b]) => [((a - GX[0]) / (GX[1] - GX[0])) * cv.width, ((GY[1] - b) / (GY[1] - GY[0])) * cv.height];
+  const Lf = (a, b) => a * a + 3 * b * b;
+  const lrNow = () => parseFloat(document.getElementById("gd-lr").value);
+  function drawGD() {
+    const W = cv.width, H = cv.height;
+    ctx.fillStyle = css("--paper"); ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = css("--rule"); ctx.lineWidth = 1.2;
+    [0.1, 0.5, 1, 2, 4, 7, 11].forEach((lev) => {
+      ctx.beginPath();
+      for (let t = 0; t <= 200; t++) {
+        const th = (2 * Math.PI * t) / 200;
+        const p = toPx([Math.sqrt(lev) * Math.cos(th), Math.sqrt(lev / 3) * Math.sin(th)]);
+        t ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]);
+      }
+      ctx.stroke();
+      const lp = toPx([0, Math.sqrt(lev / 3)]);
+      ctx.fillStyle = css("--muted"); ctx.font = "15px IBM Plex Mono, monospace"; ctx.fillText(fr(lev), lp[0] + 4, lp[1] - 4);
+    });
+    ctx.strokeStyle = css("--muted"); ctx.lineWidth = 1;
+    const o = toPx([0, 0]);
+    ctx.beginPath(); ctx.moveTo(0, o[1]); ctx.lineTo(W, o[1]); ctx.moveTo(o[0], 0); ctx.lineTo(o[0], H); ctx.stroke();
+    ctx.fillStyle = css("--muted"); ctx.font = "16px IBM Plex Sans, sans-serif"; ctx.fillText("a", W - 18, o[1] - 8); ctx.fillText("b", o[0] + 8, 18);
+    ctx.strokeStyle = css("--grad"); ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    gd.path.forEach((p, i) => { const q = toPx(p); i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+    ctx.stroke();
+    gd.path.forEach((p, i) => {
+      const q = toPx(p);
+      ctx.fillStyle = i === gd.path.length - 1 ? css("--ink") : css("--grad");
+      ctx.beginPath(); ctx.arc(q[0], q[1], i === gd.path.length - 1 ? 7 : 4, 0, 2 * Math.PI); ctx.fill();
+    });
+    ctx.fillStyle = css("--ok"); ctx.beginPath(); ctx.arc(o[0], o[1], 6, 0, 2 * Math.PI); ctx.fill();
+
+    const lr = lrNow(), [a, b] = gd.path[gd.path.length - 1];
+    document.getElementById("gd-lr-out").textContent = fr(lr, 2);
+    const fa = 1 - 2 * lr, fb = 1 - 6 * lr;
+    const verdict = (f) => (Math.abs(f) < 1 ? (f < 0 ? ["oscille et converge", "warn"] : ["converge", "ok"]) : ["diverge", "bad"]);
+    const va = verdict(fa), vb = verdict(fb);
+    document.getElementById("gd-readout").innerHTML =
+      `<div><b>${gd.path.length - 1}</b><span>pas effectués</span></div><div><b>(${fr(a, 3)}, ${fr(b, 3)})</b><span>position (a, b)</span></div><div><b>${fr(Lf(a, b), 4)}</b><span>perte L</span></div>`;
+    const g = [2 * a, 6 * b];
+    document.getElementById("gd-calc").innerHTML =
+      `∇L = (2a, 6b) = (<span class="g">${fr(g[0], 3)}</span>, <span class="g">${fr(g[1], 3)}</span>)\n` +
+      `a ← ${fr(a, 3)} − ${fr(lr, 2)} × ${par(g[0], 3)} = <span class="f">${fr(a - lr * g[0], 3)}</span>\n` +
+      `b ← ${fr(b, 3)} − ${fr(lr, 2)} × ${par(g[1], 3)} = <span class="f">${fr(b - lr * g[1], 3)}</span>`;
+    document.getElementById("gd-status").innerHTML =
+      `<p>a × (1 − 2η) = a × ${fr(fa, 2)} <span class="pill ${va[1]}">${va[0]}</span></p>` +
+      `<p>b × (1 − 6η) = b × ${fr(fb, 2)} <span class="pill ${vb[1]}">${vb[0]}</span></p>` +
+      `<p class="hint">La direction la plus courbée (b) impose η &lt; 1/3. C'est pour cela qu'un taux d'apprentissage trop grand fait exploser l'entraînement.</p>`;
+  }
+  function gdStep() {
+    const lr = lrNow(), [a, b] = gd.path[gd.path.length - 1];
+    if (Math.abs(a) > 1e3 || Math.abs(b) > 1e3 || gd.path.length > 200) { stopGD(); return; }
+    gd.path.push([a - lr * 2 * a, b - lr * 6 * b]);
+    drawGD();
+  }
+  function stopGD() { clearInterval(gd.timer); gd.timer = null; document.getElementById("gd-play").textContent = "Lancer"; }
+  document.getElementById("gd-step").addEventListener("click", gdStep);
+  document.getElementById("gd-play").addEventListener("click", () => {
+    if (gd.timer) { stopGD(); return; }
+    document.getElementById("gd-play").textContent = "Pause";
+    gd.timer = setInterval(gdStep, 380);
+  });
+  document.getElementById("gd-reset").addEventListener("click", () => { stopGD(); gd.path = [gd.start.slice()]; drawGD(); });
+  document.getElementById("gd-lr").addEventListener("input", () => { stopGD(); gd.path = [gd.start.slice()]; drawGD(); });
+  cv.addEventListener("pointerdown", (ev) => {
+    const r = cv.getBoundingClientRect();
+    const px = ((ev.clientX - r.left) / r.width) * cv.width, py = ((ev.clientY - r.top) / r.height) * cv.height;
+    const a = GX[0] + (px / cv.width) * (GX[1] - GX[0]), b = GY[1] - (py / cv.height) * (GY[1] - GY[0]);
+    stopGD();
+    gd.start = [Math.round(a * 10) / 10, Math.round(b * 10) / 10];
+    gd.path = [gd.start.slice()];
+    drawGD();
+  });
+
+  /* ---------- boot ---------- */
+  function redrawAll() { drawDot(); drawPC(); drawBP(); drawGD(); }
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", redrawAll);
+  new MutationObserver(redrawAll).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  redrawAll();
+  let initial = "produit";
+  const fromHash = (location.hash || "").slice(1);
+  if (["produit", "perceptron", "retropropagation", "descente"].includes(fromHash)) initial = fromHash;
+  else { try { const s = localStorage.getItem("labo0-view"); if (s) initial = s; } catch (e) {} }
+  show(initial);
+})();
+</script>
+
+</body>
+</html>

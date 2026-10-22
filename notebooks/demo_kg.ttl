@@ -1,0 +1,773 @@
+@prefix ex: <http://example.org/demo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:DEMO-IGHJ1
+    ex:inLocus ex:IGH_Homo_sapiens ;
+    rdf:type ex:JGene ;
+    rdfs:label "DEMO-IGHJ1" .
+
+ex:DEMO-IGHJ1-mm
+    ex:inLocus ex:IGH_Mus_musculus ;
+    rdf:type ex:JGene ;
+    rdfs:label "DEMO-IGHJ1-mm" .
+
+ex:DEMO-IGHV1-01-mm
+    ex:hasAllele ex:DEMO-IGHV1-01-mm_01 ;
+    ex:inLocus ex:IGH_Mus_musculus ;
+    ex:subgroup "1"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV1-01-mm" .
+
+ex:DEMO-IGHV1-01-mm_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV1-01-mm*01" .
+
+ex:DEMO-IGHV1-02
+    ex:hasAllele ex:DEMO-IGHV1-02_01 ;
+    ex:inLocus ex:IGH_Homo_sapiens ;
+    ex:subgroup "1"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV1-02" .
+
+ex:DEMO-IGHV1-02_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV1-02*01" .
+
+ex:DEMO-IGHV1-05
+    ex:hasAllele ex:DEMO-IGHV1-05_01 ;
+    ex:hasAllele ex:DEMO-IGHV1-05_02 ;
+    ex:inLocus ex:IGH_Homo_sapiens ;
+    ex:subgroup "1"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV1-05" .
+
+ex:DEMO-IGHV1-05_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV1-05*01" .
+
+ex:DEMO-IGHV1-05_02
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV1-05*02" .
+
+ex:DEMO-IGHV2-01
+    ex:hasAllele ex:DEMO-IGHV2-01_01 ;
+    ex:hasAllele ex:DEMO-IGHV2-01_02 ;
+    ex:inLocus ex:IGH_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV2-01" .
+
+ex:DEMO-IGHV2-01_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV2-01*01" .
+
+ex:DEMO-IGHV2-01_02
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV2-01*02" .
+
+ex:DEMO-IGHV2-02-mm
+    ex:hasAllele ex:DEMO-IGHV2-02-mm_01 ;
+    ex:inLocus ex:IGH_Mus_musculus ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV2-02-mm" .
+
+ex:DEMO-IGHV2-02-mm_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV2-02-mm*01" .
+
+ex:DEMO-IGHV2-04
+    ex:hasAllele ex:DEMO-IGHV2-04_01 ;
+    ex:hasAllele ex:DEMO-IGHV2-04_02 ;
+    ex:inLocus ex:IGH_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV2-04" .
+
+ex:DEMO-IGHV2-04_01
+    ex:cdr1Length "6"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV2-04*01" .
+
+ex:DEMO-IGHV2-04_02
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV2-04*02" .
+
+ex:DEMO-IGHV2-05-mm
+    ex:hasAllele ex:DEMO-IGHV2-05-mm_01 ;
+    ex:hasAllele ex:DEMO-IGHV2-05-mm_02 ;
+    ex:inLocus ex:IGH_Mus_musculus ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV2-05-mm" .
+
+ex:DEMO-IGHV2-05-mm_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV2-05-mm*01" .
+
+ex:DEMO-IGHV2-05-mm_02
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV2-05-mm*02" .
+
+ex:DEMO-IGHV3-03
+    ex:hasAllele ex:DEMO-IGHV3-03_01 ;
+    ex:hasAllele ex:DEMO-IGHV3-03_02 ;
+    ex:inLocus ex:IGH_Homo_sapiens ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV3-03" .
+
+ex:DEMO-IGHV3-03-mm
+    ex:hasAllele ex:DEMO-IGHV3-03-mm_01 ;
+    ex:hasAllele ex:DEMO-IGHV3-03-mm_02 ;
+    ex:hasAllele ex:DEMO-IGHV3-03-mm_03 ;
+    ex:inLocus ex:IGH_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV3-03-mm" .
+
+ex:DEMO-IGHV3-03-mm_01
+    ex:cdr1Length "6"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-03-mm*01" .
+
+ex:DEMO-IGHV3-03-mm_02
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-03-mm*02" .
+
+ex:DEMO-IGHV3-03-mm_03
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-03-mm*03" .
+
+ex:DEMO-IGHV3-03_01
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-03*01" .
+
+ex:DEMO-IGHV3-03_02
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-03*02" .
+
+ex:DEMO-IGHV3-04-mm
+    ex:hasAllele ex:DEMO-IGHV3-04-mm_01 ;
+    ex:inLocus ex:IGH_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV3-04-mm" .
+
+ex:DEMO-IGHV3-04-mm_01
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-04-mm*01" .
+
+ex:DEMO-IGHV3-06
+    ex:hasAllele ex:DEMO-IGHV3-06_01 ;
+    ex:hasAllele ex:DEMO-IGHV3-06_02 ;
+    ex:hasAllele ex:DEMO-IGHV3-06_03 ;
+    ex:inLocus ex:IGH_Homo_sapiens ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV3-06" .
+
+ex:DEMO-IGHV3-06-mm
+    ex:hasAllele ex:DEMO-IGHV3-06-mm_01 ;
+    ex:inLocus ex:IGH_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGHV3-06-mm" .
+
+ex:DEMO-IGHV3-06-mm_01
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-06-mm*01" .
+
+ex:DEMO-IGHV3-06_01
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-06*01" .
+
+ex:DEMO-IGHV3-06_02
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-06*02" .
+
+ex:DEMO-IGHV3-06_03
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGHV3-06*03" .
+
+ex:DEMO-IGKJ1
+    ex:inLocus ex:IGK_Homo_sapiens ;
+    rdf:type ex:JGene ;
+    rdfs:label "DEMO-IGKJ1" .
+
+ex:DEMO-IGKJ1-mm
+    ex:inLocus ex:IGK_Mus_musculus ;
+    rdf:type ex:JGene ;
+    rdfs:label "DEMO-IGKJ1-mm" .
+
+ex:DEMO-IGKV1-02
+    ex:hasAllele ex:DEMO-IGKV1-02_01 ;
+    ex:hasAllele ex:DEMO-IGKV1-02_02 ;
+    ex:hasAllele ex:DEMO-IGKV1-02_03 ;
+    ex:inLocus ex:IGK_Homo_sapiens ;
+    ex:subgroup "1"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV1-02" .
+
+ex:DEMO-IGKV1-02_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV1-02*01" .
+
+ex:DEMO-IGKV1-02_02
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV1-02*02" .
+
+ex:DEMO-IGKV1-02_03
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV1-02*03" .
+
+ex:DEMO-IGKV2-01
+    ex:hasAllele ex:DEMO-IGKV2-01_01 ;
+    ex:hasAllele ex:DEMO-IGKV2-01_02 ;
+    ex:inLocus ex:IGK_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV2-01" .
+
+ex:DEMO-IGKV2-01-mm
+    ex:hasAllele ex:DEMO-IGKV2-01-mm_01 ;
+    ex:hasAllele ex:DEMO-IGKV2-01-mm_02 ;
+    ex:inLocus ex:IGK_Mus_musculus ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV2-01-mm" .
+
+ex:DEMO-IGKV2-01-mm_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-01-mm*01" .
+
+ex:DEMO-IGKV2-01-mm_02
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-01-mm*02" .
+
+ex:DEMO-IGKV2-01_01
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-01*01" .
+
+ex:DEMO-IGKV2-01_02
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-01*02" .
+
+ex:DEMO-IGKV2-03
+    ex:hasAllele ex:DEMO-IGKV2-03_01 ;
+    ex:hasAllele ex:DEMO-IGKV2-03_02 ;
+    ex:hasAllele ex:DEMO-IGKV2-03_03 ;
+    ex:inLocus ex:IGK_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV2-03" .
+
+ex:DEMO-IGKV2-03-mm
+    ex:hasAllele ex:DEMO-IGKV2-03-mm_01 ;
+    ex:inLocus ex:IGK_Mus_musculus ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV2-03-mm" .
+
+ex:DEMO-IGKV2-03-mm_01
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-03-mm*01" .
+
+ex:DEMO-IGKV2-03_01
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-03*01" .
+
+ex:DEMO-IGKV2-03_02
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-03*02" .
+
+ex:DEMO-IGKV2-03_03
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-03*03" .
+
+ex:DEMO-IGKV2-04-mm
+    ex:hasAllele ex:DEMO-IGKV2-04-mm_01 ;
+    ex:hasAllele ex:DEMO-IGKV2-04-mm_02 ;
+    ex:inLocus ex:IGK_Mus_musculus ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV2-04-mm" .
+
+ex:DEMO-IGKV2-04-mm_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-04-mm*01" .
+
+ex:DEMO-IGKV2-04-mm_02
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV2-04-mm*02" .
+
+ex:DEMO-IGKV3-02-mm
+    ex:hasAllele ex:DEMO-IGKV3-02-mm_01 ;
+    ex:hasAllele ex:DEMO-IGKV3-02-mm_02 ;
+    ex:inLocus ex:IGK_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV3-02-mm" .
+
+ex:DEMO-IGKV3-02-mm_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV3-02-mm*01" .
+
+ex:DEMO-IGKV3-02-mm_02
+    ex:cdr1Length "6"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV3-02-mm*02" .
+
+ex:DEMO-IGKV3-04
+    ex:hasAllele ex:DEMO-IGKV3-04_01 ;
+    ex:hasAllele ex:DEMO-IGKV3-04_02 ;
+    ex:hasAllele ex:DEMO-IGKV3-04_03 ;
+    ex:inLocus ex:IGK_Homo_sapiens ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-IGKV3-04" .
+
+ex:DEMO-IGKV3-04_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV3-04*01" .
+
+ex:DEMO-IGKV3-04_02
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV3-04*02" .
+
+ex:DEMO-IGKV3-04_03
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-IGKV3-04*03" .
+
+ex:DEMO-TRBJ1
+    ex:inLocus ex:TRB_Homo_sapiens ;
+    rdf:type ex:JGene ;
+    rdfs:label "DEMO-TRBJ1" .
+
+ex:DEMO-TRBJ1-mm
+    ex:inLocus ex:TRB_Mus_musculus ;
+    rdf:type ex:JGene ;
+    rdfs:label "DEMO-TRBJ1-mm" .
+
+ex:DEMO-TRBV1-02-mm
+    ex:hasAllele ex:DEMO-TRBV1-02-mm_01 ;
+    ex:hasAllele ex:DEMO-TRBV1-02-mm_02 ;
+    ex:inLocus ex:TRB_Mus_musculus ;
+    ex:subgroup "1"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV1-02-mm" .
+
+ex:DEMO-TRBV1-02-mm_01
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV1-02-mm*01" .
+
+ex:DEMO-TRBV1-02-mm_02
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV1-02-mm*02" .
+
+ex:DEMO-TRBV2-01
+    ex:hasAllele ex:DEMO-TRBV2-01_01 ;
+    ex:hasAllele ex:DEMO-TRBV2-01_02 ;
+    ex:inLocus ex:TRB_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV2-01" .
+
+ex:DEMO-TRBV2-01_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-01*01" .
+
+ex:DEMO-TRBV2-01_02
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-01*02" .
+
+ex:DEMO-TRBV2-03
+    ex:hasAllele ex:DEMO-TRBV2-03_01 ;
+    ex:hasAllele ex:DEMO-TRBV2-03_02 ;
+    ex:hasAllele ex:DEMO-TRBV2-03_03 ;
+    ex:inLocus ex:TRB_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV2-03" .
+
+ex:DEMO-TRBV2-03_01
+    ex:cdr1Length "6"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-03*01" .
+
+ex:DEMO-TRBV2-03_02
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-03*02" .
+
+ex:DEMO-TRBV2-03_03
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-03*03" .
+
+ex:DEMO-TRBV2-04
+    ex:hasAllele ex:DEMO-TRBV2-04_01 ;
+    ex:hasAllele ex:DEMO-TRBV2-04_02 ;
+    ex:hasAllele ex:DEMO-TRBV2-04_03 ;
+    ex:inLocus ex:TRB_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV2-04" .
+
+ex:DEMO-TRBV2-04_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-04*01" .
+
+ex:DEMO-TRBV2-04_02
+    ex:cdr1Length "6"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-04*02" .
+
+ex:DEMO-TRBV2-04_03
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-04*03" .
+
+ex:DEMO-TRBV2-05
+    ex:hasAllele ex:DEMO-TRBV2-05_01 ;
+    ex:inLocus ex:TRB_Homo_sapiens ;
+    ex:subgroup "2"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV2-05" .
+
+ex:DEMO-TRBV2-05_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV2-05*01" .
+
+ex:DEMO-TRBV3-01-mm
+    ex:hasAllele ex:DEMO-TRBV3-01-mm_01 ;
+    ex:hasAllele ex:DEMO-TRBV3-01-mm_02 ;
+    ex:hasAllele ex:DEMO-TRBV3-01-mm_03 ;
+    ex:inLocus ex:TRB_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV3-01-mm" .
+
+ex:DEMO-TRBV3-01-mm_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-01-mm*01" .
+
+ex:DEMO-TRBV3-01-mm_02
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-01-mm*02" .
+
+ex:DEMO-TRBV3-01-mm_03
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-01-mm*03" .
+
+ex:DEMO-TRBV3-02
+    ex:hasAllele ex:DEMO-TRBV3-02_01 ;
+    ex:inLocus ex:TRB_Homo_sapiens ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV3-02" .
+
+ex:DEMO-TRBV3-02_01
+    ex:cdr1Length "8"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-02*01" .
+
+ex:DEMO-TRBV3-03-mm
+    ex:hasAllele ex:DEMO-TRBV3-03-mm_01 ;
+    ex:hasAllele ex:DEMO-TRBV3-03-mm_02 ;
+    ex:hasAllele ex:DEMO-TRBV3-03-mm_03 ;
+    ex:inLocus ex:TRB_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV3-03-mm" .
+
+ex:DEMO-TRBV3-03-mm_01
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-03-mm*01" .
+
+ex:DEMO-TRBV3-03-mm_02
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-03-mm*02" .
+
+ex:DEMO-TRBV3-03-mm_03
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-03-mm*03" .
+
+ex:DEMO-TRBV3-04-mm
+    ex:hasAllele ex:DEMO-TRBV3-04-mm_01 ;
+    ex:hasAllele ex:DEMO-TRBV3-04-mm_02 ;
+    ex:hasAllele ex:DEMO-TRBV3-04-mm_03 ;
+    ex:inLocus ex:TRB_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV3-04-mm" .
+
+ex:DEMO-TRBV3-04-mm_01
+    ex:cdr1Length "5"^^xsd:integer ;
+    ex:functionality ex:Pseudogene ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-04-mm*01" .
+
+ex:DEMO-TRBV3-04-mm_02
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-04-mm*02" .
+
+ex:DEMO-TRBV3-04-mm_03
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-04-mm*03" .
+
+ex:DEMO-TRBV3-05-mm
+    ex:hasAllele ex:DEMO-TRBV3-05-mm_01 ;
+    ex:hasAllele ex:DEMO-TRBV3-05-mm_02 ;
+    ex:hasAllele ex:DEMO-TRBV3-05-mm_03 ;
+    ex:inLocus ex:TRB_Mus_musculus ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV3-05-mm" .
+
+ex:DEMO-TRBV3-05-mm_01
+    ex:cdr1Length "6"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-05-mm*01" .
+
+ex:DEMO-TRBV3-05-mm_02
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-05-mm*02" .
+
+ex:DEMO-TRBV3-05-mm_03
+    ex:cdr1Length "10"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-05-mm*03" .
+
+ex:DEMO-TRBV3-06
+    ex:hasAllele ex:DEMO-TRBV3-06_01 ;
+    ex:hasAllele ex:DEMO-TRBV3-06_02 ;
+    ex:inLocus ex:TRB_Homo_sapiens ;
+    ex:subgroup "3"^^xsd:integer ;
+    rdf:type ex:VGene ;
+    rdfs:label "DEMO-TRBV3-06" .
+
+ex:DEMO-TRBV3-06_01
+    ex:cdr1Length "7"^^xsd:integer ;
+    ex:functionality ex:ORF ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-06*01" .
+
+ex:DEMO-TRBV3-06_02
+    ex:cdr1Length "9"^^xsd:integer ;
+    ex:functionality ex:Functional ;
+    rdf:type ex:Allele ;
+    rdfs:label "DEMO-TRBV3-06*02" .
+
+ex:Functional
+    rdf:type ex:Functionality ;
+    rdfs:label "Functional" .
+
+ex:Gene
+    rdfs:subClassOf ex:GenomicFeature .
+
+ex:Homo_sapiens
+    rdf:type ex:Species ;
+    rdfs:label "Homo sapiens" .
+
+ex:IGH_Homo_sapiens
+    ex:inSpecies ex:Homo_sapiens ;
+    rdf:type ex:Locus ;
+    rdfs:label "IGH (Homo sapiens)" .
+
+ex:IGH_Mus_musculus
+    ex:inSpecies ex:Mus_musculus ;
+    rdf:type ex:Locus ;
+    rdfs:label "IGH (Mus musculus)" .
+
+ex:IGK_Homo_sapiens
+    ex:inSpecies ex:Homo_sapiens ;
+    rdf:type ex:Locus ;
+    rdfs:label "IGK (Homo sapiens)" .
+
+ex:IGK_Mus_musculus
+    ex:inSpecies ex:Mus_musculus ;
+    rdf:type ex:Locus ;
+    rdfs:label "IGK (Mus musculus)" .
+
+ex:JGene
+    rdfs:subClassOf ex:Gene .
+
+ex:Locus
+    rdfs:subClassOf ex:GenomicFeature .
+
+ex:Mus_musculus
+    rdf:type ex:Species ;
+    rdfs:label "Mus musculus" .
+
+ex:ORF
+    rdf:type ex:Functionality ;
+    rdfs:label "ORF" .
+
+ex:Pseudogene
+    rdf:type ex:Functionality ;
+    rdfs:label "Pseudogene" .
+
+ex:TRB_Homo_sapiens
+    ex:inSpecies ex:Homo_sapiens ;
+    rdf:type ex:Locus ;
+    rdfs:label "TRB (Homo sapiens)" .
+
+ex:TRB_Mus_musculus
+    ex:inSpecies ex:Mus_musculus ;
+    rdf:type ex:Locus ;
+    rdfs:label "TRB (Mus musculus)" .
+
+ex:VGene
+    rdfs:subClassOf ex:Gene .
+
+ex:cdr1Length
+    rdf:type rdf:Property ;
+    rdfs:domain ex:Allele ;
+    rdfs:label "longueur de la CDR1 (acides aminés)" ;
+    rdfs:range xsd:integer .
+
+ex:functionality
+    rdf:type rdf:Property ;
+    rdfs:domain ex:Allele ;
+    rdfs:label "fonctionnalité" ;
+    rdfs:range ex:Functionality .
+
+ex:hasAllele
+    rdf:type rdf:Property ;
+    rdfs:domain ex:Gene ;
+    rdfs:label "a pour allèle" ;
+    rdfs:range ex:Allele .
+
+ex:inLocus
+    rdf:type rdf:Property ;
+    rdfs:domain ex:Gene ;
+    rdfs:label "appartient au locus" ;
+    rdfs:range ex:Locus .
+
+ex:inSpecies
+    rdf:type rdf:Property ;
+    rdfs:domain ex:Locus ;
+    rdfs:label "locus de l'espèce" ;
+    rdfs:range ex:Species .
+
+ex:subgroup
+    rdf:type rdf:Property ;
+    rdfs:domain ex:VGene ;
+    rdfs:label "sous-groupe" ;
+    rdfs:range xsd:integer .

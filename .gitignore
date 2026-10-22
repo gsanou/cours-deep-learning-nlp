@@ -1,0 +1,10 @@
+# generated data (pf01 recreates it)
+notebooks/data_protannotml/
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# archives and local outputs
+*.zip
+projet_protannotml/runs/
+projet_protannotml/checkpoints/
